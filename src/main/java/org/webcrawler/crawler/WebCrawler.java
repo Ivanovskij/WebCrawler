@@ -1,6 +1,7 @@
 package org.webcrawler.crawler;
 
 import org.webcrawler.crawler.search.CrawlSearcher;
+import org.webcrawler.crawler.search.DefaultSearcher;
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
 import org.webcrawler.model.statistic.Statistic;
@@ -32,10 +33,9 @@ public class WebCrawler implements Crawler {
         return crawlSearcher.search(crawledDetails);
     }
 
-    //todo: сделать какую то обертку аля пустой crawl searcher
     @Override
     public List<Statistic> crawl(String rootSeed, int depth) {
-        return crawl(rootSeed, depth, null);
+        return crawl(rootSeed, depth, new DefaultSearcher());
     }
 
 }
