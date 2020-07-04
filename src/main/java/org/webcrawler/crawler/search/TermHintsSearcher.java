@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.counting;
@@ -17,9 +18,14 @@ import static java.util.stream.Collectors.groupingBy;
 
 public class TermHintsSearcher implements CrawlSearcher {
 
+    public static final long NOT_FOUND_TERM = 0L;
     private final Tokenizer tokenizer;
     private final List<String> terms;
     private final CrawlSearcherSettings settings;
+
+    public TermHintsSearcher(List<String> terms) {
+        this(terms, new CrawlSearcherSettings.Builder().build());
+    }
 
     public TermHintsSearcher(List<String> terms, CrawlSearcherSettings settings) {
         this.terms = terms;
@@ -42,12 +48,20 @@ public class TermHintsSearcher implements CrawlSearcher {
     }
 
     private Map<String, Long> getTotalHints(String text) {
-        return intersect(terms,
-                tokenizer.tokenize(text)).parallelStream()
+        List<String> tokens = tokenizer.tokenize(text);
+        Map<String, Long> totalHints = findTerms(terms, tokens).parallelStream()
                         .collect(groupingBy(Function.identity(), counting()));
+        totalHints.putAll(getNotFoundTerms(terms, tokens));
+        return totalHints;
     }
 
-    private List<String> intersect(List<String> terms, List<String> tokens) {
+    private Map<String, Long> getNotFoundTerms(List<String> terms, List<String> tokens) {
+        return terms.stream()
+                .filter(Predicate.not(tokens::contains))
+                .collect(Collectors.toMap(Function.identity(), value-> NOT_FOUND_TERM));
+    }
+
+    private List<String> findTerms(List<String> terms, List<String> tokens) {
         return tokens.parallelStream()
                 .filter(terms::contains)
                 .collect(Collectors.toList());

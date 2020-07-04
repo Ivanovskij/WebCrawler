@@ -6,8 +6,6 @@ import java.util.List;
 
 public class CrawlSearcherSettings {
 
-    //todo: придумать boolean который будет
-    // добавлять или нет пустые term hints (по сути где не найдено зачем они)
     private final List<Remover> removers;
 
     public CrawlSearcherSettings(List<Remover> remover) {
