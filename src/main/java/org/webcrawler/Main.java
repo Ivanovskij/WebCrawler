@@ -36,10 +36,7 @@ public class Main {
 //        worker.executeStrategy(rootSeed, depth, Arrays.asList("font", "java"));
         Crawler crawler = new WebCrawler(new ConcurrentWorkerStrategy());
         CrawlSearcher crawlSearcher = new TermHintsSearcher(
-                asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia"),
-                new CrawlSearcherSettings.Builder()
-                        .setRemovers(asList(new HtmlRemover(), new SignRemover())).build()
-        );
+                asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia"));
         crawler.crawl("https://likeit.by/", 1, crawlSearcher).stream()
             .filter(statistic -> ((TermStatistic)statistic).getTermsHints().size() > 0)
                 .forEach(System.out::println);

@@ -2,7 +2,9 @@ package org.webcrawler.crawler.search;
 
 import org.webcrawler.parser.Remover;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class CrawlSearcherSettings {
 
@@ -41,7 +43,9 @@ public class CrawlSearcherSettings {
         }
 
         public CrawlSearcherSettings build() {
-            return new CrawlSearcherSettings(removers);
+            return new CrawlSearcherSettings(
+                    Optional.ofNullable(removers).orElse(Collections.emptyList())
+            );
         }
     }
 }
