@@ -6,7 +6,6 @@ import org.webcrawler.crawler.search.CrawlSearcherSettings;
 import org.webcrawler.util.StringUtil;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +25,7 @@ public class TokenizerTest {
 
     @Test
     public void shouldTokenizeTreeWords() {
-        List<String> expected = Collections.singletonList("nights 0 0");
+        List<String> expected = Arrays.asList("nights","0","0");
         String removedFromSignAndHtml = searcherSettings.remove(StringUtil.TEST_HTML_STRING);
         List<String> actual = tokenizer.tokenize(removedFromSignAndHtml);
         assertEquals(expected, actual);
