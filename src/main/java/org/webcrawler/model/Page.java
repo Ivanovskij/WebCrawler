@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Page {
     private List<String> links;
-    private String text;
+    private String body;
 
-    public Page(List<String> links, String text) {
+    public Page(List<String> links, String body) {
         this.links = links;
-        this.text = text;
+        this.body = body;
     }
 
     public List<String> getLinks() {
@@ -19,19 +19,19 @@ public class Page {
         this.links = links;
     }
 
-    public String getText() {
-        return text;
+    public String getBody() {
+        return body;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     @Override
     public String toString() {
         return "Page{" +
                 "links=" + links +
-                ", text='" + text + '\'' +
+                ", body='" + body + '\'' +
                 '}';
     }
 }

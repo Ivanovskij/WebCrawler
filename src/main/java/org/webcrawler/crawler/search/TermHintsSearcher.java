@@ -41,7 +41,7 @@ public class TermHintsSearcher implements CrawlSearcher {
     public List<Statistic> search(Map<CrawlingSeed, Page> details) {
         List<Statistic> statistics = new ArrayList<>();
         details.forEach((seed, page) -> {
-            Map<String, Long> termsTotalHints = getTotalHints(settings.remove(page.getText()));
+            Map<String, Long> termsTotalHints = getTotalHints(settings.setUp(page.getBody()));
             statistics.add(new TermStatistic(seed.getSeed(), termsTotalHints));
         });
         return statistics;
