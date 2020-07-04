@@ -26,7 +26,7 @@ public class TokenizerTest {
     @Test
     public void shouldTokenizeTreeWords() {
         List<String> expected = Arrays.asList("nights","0","0");
-        String removedFromSignAndHtml = searcherSettings.remove(StringUtil.TEST_HTML_STRING);
+        String removedFromSignAndHtml = searcherSettings.process(StringUtil.TEST_HTML_STRING);
         List<String> actual = tokenizer.tokenize(removedFromSignAndHtml);
         assertEquals(expected, actual);
     }

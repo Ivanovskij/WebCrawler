@@ -2,7 +2,9 @@ package org.webcrawler.crawler.search;
 
 import org.webcrawler.parser.Remover;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class CrawlSearcherSettings {
 
@@ -12,17 +14,16 @@ public class CrawlSearcherSettings {
         this.removers = remover;
     }
 
-    public List<Remover> getRemovers() {
-        return removers;
-    }
-
-    //todo: переделать, @see TermsHintsSearcher->search todo
-    public String remove(final String text) {
-        String processedText = text;
+    private String processByRemovers(final String input) {
+        String processedText = input;
         for (Remover r: removers) {
             processedText = r.remove(processedText);
         }
         return processedText;
+    }
+
+    public String process(final String input) {
+        return processByRemovers(input);
     }
 
     public static class Builder {
@@ -41,7 +42,9 @@ public class CrawlSearcherSettings {
         }
 
         public CrawlSearcherSettings build() {
-            return new CrawlSearcherSettings(removers);
+            return new CrawlSearcherSettings(
+                    Optional.ofNullable(removers).orElse(Collections.emptyList())
+            );
         }
     }
 }
