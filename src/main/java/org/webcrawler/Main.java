@@ -5,7 +5,6 @@ import org.webcrawler.crawler.WebCrawler;
 import org.webcrawler.crawler.search.CrawlSearcher;
 import org.webcrawler.crawler.search.CrawlSearcherSettings;
 import org.webcrawler.crawler.search.TermHintsSearcher;
-import org.webcrawler.model.statistic.TermStatistic;
 import org.webcrawler.parser.HtmlRemover;
 import org.webcrawler.parser.SignRemover;
 import org.webcrawler.worker.ConcurrentWorkerStrategy;
@@ -36,9 +35,11 @@ public class Main {
 //        worker.executeStrategy(rootSeed, depth, Arrays.asList("font", "java"));
         Crawler crawler = new WebCrawler(new ConcurrentWorkerStrategy());
         CrawlSearcher crawlSearcher = new TermHintsSearcher(
-                asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia"));
-        crawler.crawl("https://likeit.by/", 1, crawlSearcher).stream()
-            .filter(statistic -> ((TermStatistic)statistic).getTermsHints().size() > 0)
+                asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia"),
+                new CrawlSearcherSettings.Builder()
+                        .setRemovers(asList(new HtmlRemover(), new SignRemover())).build()
+        );
+        crawler.crawl("https://likeit.by/", 1, crawlSearcher)
                 .forEach(System.out::println);
     }
 

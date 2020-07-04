@@ -33,15 +33,11 @@ public class TermHintsSearcher implements CrawlSearcher {
         tokenizer = new Tokenizer();
     }
 
-    // todo: переделать settings remove:
-    // todo: 1. вообще не понятно почему settings удаляет что-то
-    // todo: 2. если пользователь еще задаст какие-либо настройки то тут они не выполняться никогда
-    // todo: 3. нунжо сделать штуку которая перед поиском выполнит все настройки и будет искать
     @Override
     public List<Statistic> search(Map<CrawlingSeed, Page> details) {
         List<Statistic> statistics = new ArrayList<>();
         details.forEach((seed, page) -> {
-            Map<String, Long> termsTotalHints = getTotalHints(settings.setUp(page.getBody()));
+            Map<String, Long> termsTotalHints = getTotalHints(settings.process(page.getBody()));
             statistics.add(new TermStatistic(seed.getSeed(), termsTotalHints));
         });
         return statistics;

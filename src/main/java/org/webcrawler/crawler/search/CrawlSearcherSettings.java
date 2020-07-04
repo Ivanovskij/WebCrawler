@@ -14,17 +14,16 @@ public class CrawlSearcherSettings {
         this.removers = remover;
     }
 
-    public List<Remover> getRemovers() {
-        return removers;
-    }
-
-    //todo: переделать, @see TermsHintsSearcher->search todo
-    public String remove(final String text) {
-        String processedText = text;
+    private String processByRemovers(final String input) {
+        String processedText = input;
         for (Remover r: removers) {
             processedText = r.remove(processedText);
         }
         return processedText;
+    }
+
+    public String process(final String input) {
+        return processByRemovers(input);
     }
 
     public static class Builder {
