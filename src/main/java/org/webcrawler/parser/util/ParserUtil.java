@@ -11,7 +11,8 @@ public class ParserUtil {
 
     public static final int WHOLE_COINCIDENCE = 1;
     private static final String NORMAL_SEED_REGEX = "href=\"([^\"]*)\"";
-    private static final String STARTS_WITH_HTTP = "http";
+    private static final String STARTS_WITH_HTTP = "http://";
+    private static final String STARTS_WITH_HTTPS = "https://";
     private static final Pattern normalSeedPattern = Pattern.compile(NORMAL_SEED_REGEX, Pattern.DOTALL);
 
     /**
@@ -28,7 +29,7 @@ public class ParserUtil {
                     .map(matchResult -> matchResult.group(WHOLE_COINCIDENCE))
                     .filter(Objects::nonNull)
                     .filter(Predicate.not(String::isEmpty))
-                    .filter(seed -> seed.startsWith(STARTS_WITH_HTTP))
+                    .filter(seed -> seed.startsWith(STARTS_WITH_HTTP) || seed.startsWith(STARTS_WITH_HTTPS))
                     .collect(Collectors.toList());
         }
     }
