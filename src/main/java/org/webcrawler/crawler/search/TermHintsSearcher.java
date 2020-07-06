@@ -4,69 +4,47 @@ import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
 import org.webcrawler.model.statistic.Statistic;
 import org.webcrawler.model.statistic.TermStatistic;
-import org.webcrawler.parser.HtmlRemover;
-import org.webcrawler.parser.RemoverFacade;
-import org.webcrawler.parser.SignRemover;
 import org.webcrawler.parser.Tokenizer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 public class TermHintsSearcher implements CrawlSearcher {
 
     public static final long NOT_FOUND_TERM = 0L;
-    public static final String SORT_DIRECTION_IS_NOT_SUPPORTED = "This sort direction is not supported";
     private final Tokenizer tokenizer;
     private final List<String> terms;
-    private final List<TermStatistic> statistics;
-    private RemoverFacade removerFacade;
+    private final CrawlSearcherSettings settings;
 
     public TermHintsSearcher(List<String> terms) {
-        this.terms = terms;
-        tokenizer = new Tokenizer();
-        statistics = new ArrayList<>();
-        removerFacade = new RemoverFacade(Arrays.asList(new HtmlRemover(), new SignRemover()));
+        this(terms, new CrawlSearcherSettings.Builder().build());
     }
 
+    public TermHintsSearcher(List<String> terms, CrawlSearcherSettings settings) {
+        this.terms = terms;
+        this.settings = settings;
+        tokenizer = new Tokenizer();
+    }
+
+    // todo: переделать settings remove:
+    // todo: 1. вообще не понятно почему settings удаляет что-то
+    // todo: 2. если пользователь еще задаст какие-либо настройки то тут они не выполняться никогда
+    // todo: 3. нунжо сделать штуку которая перед поиском выполнит все настройки и будет искать
     @Override
-    public CrawlSearcher search(final Map<CrawlingSeed, Page> details) {
+    public List<Statistic> search(Map<CrawlingSeed, Page> details) {
+        List<Statistic> statistics = new ArrayList<>();
         details.forEach((seed, page) -> {
-            Map<String, Long> termsTotalHints = getTotalHints(removerFacade.remove(page.getBody()));
+            Map<String, Long> termsTotalHints = getTotalHints(settings.remove(page.getText()));
             statistics.add(new TermStatistic(seed.getSeed(), termsTotalHints));
         });
-        return this;
-    }
-
-    @Override
-    public CrawlSearcher sort(final SortDirection sortDirection) {
-        Comparator<TermStatistic> termHintsComparator = Comparator.comparing(value ->
-                        value.getTermsHints()
-                                .values()
-                                .stream()
-                                .mapToLong(i -> i)
-                                .sum());
-
-        if (SortDirection.ASC.equals(sortDirection))  {
-            statistics.sort(termHintsComparator);
-        } else if (SortDirection.DESC.equals(sortDirection)) {
-            statistics.sort(termHintsComparator);
-            Collections.reverse(statistics);
-        } else {
-            throw new UnsupportedOperationException(SORT_DIRECTION_IS_NOT_SUPPORTED);
-        }
-
-        return this;
-    }
-
-    @Override
-    public List<Statistic> limit(long limit) {
-        return statistics.stream()
-                .limit(limit)
-                .collect(Collectors.toList());
+        return statistics;
     }
 
     private Map<String, Long> getTotalHints(String text) {
@@ -80,7 +58,7 @@ public class TermHintsSearcher implements CrawlSearcher {
     private Map<String, Long> getNotFoundTerms(List<String> terms, List<String> tokens) {
         return terms.stream()
                 .filter(Predicate.not(tokens::contains))
-                .collect(toMap(Function.identity(), value-> NOT_FOUND_TERM));
+                .collect(Collectors.toMap(Function.identity(), value-> NOT_FOUND_TERM));
     }
 
     private List<String> findTerms(List<String> terms, List<String> tokens) {
