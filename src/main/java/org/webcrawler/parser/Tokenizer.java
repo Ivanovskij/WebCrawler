@@ -9,9 +9,6 @@ public class Tokenizer {
 
     private static final String SPACE_DELIMITER = " ";
 
-    public Tokenizer() {
-    }
-
     public List<String> tokenize(String input) {
         return Collections.list(new StringTokenizer(input, SPACE_DELIMITER)).stream()
                 .map(token -> (String) token)

@@ -15,11 +15,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ConcurrentWorkerStrategy implements WorkerStrategy {
 
-    private static final Logger logger = Logger.getLogger(Logger.class.getName());
+    private static final Logger logger = Logger.getLogger(ConcurrentWorkerStrategy.class.getName());
     private static final int LEVEL_DEEPER = 1;
 
     private final ConcurrentLinkedQueue<CrawlingSeed> crawlingSeeds;
@@ -42,9 +43,9 @@ public class ConcurrentWorkerStrategy implements WorkerStrategy {
         HttpResponse<String> response = null;
 
         while (!crawlingSeeds.isEmpty()) {
-            logger.info("queue: " + crawlingSeeds);
+            logger.log(Level.INFO, "queue: {0}", crawlingSeeds);
             crawlingSeed = crawlingSeeds.poll();
-            logger.info("processing url: " + crawlingSeed);
+            logger.log(Level.INFO, "processing url: {0}", crawlingSeed);
 
             try {
                 request = buildRequest(crawlingSeed, Duration.ofMinutes(1));
@@ -62,7 +63,7 @@ public class ConcurrentWorkerStrategy implements WorkerStrategy {
             }
         }
 
-        logger.info("All " + pageDetails.size() + " seeds were processed");
+        logger.log(Level.INFO, "All {0} seeds were processed", pageDetails.size());
         return pageDetails;
     }
 

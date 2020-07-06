@@ -12,19 +12,24 @@ public class ParserUtil {
     public static final int WHOLE_COINCIDENCE = 1;
     private static final String NORMAL_SEED_REGEX = "href=\"([^\"]*)\"";
     private static final String STARTS_WITH_HTTP = "http";
-    private final static Pattern normalSeedPattern = Pattern.compile(NORMAL_SEED_REGEX, Pattern.DOTALL);
+    private static final Pattern normalSeedPattern = Pattern.compile(NORMAL_SEED_REGEX, Pattern.DOTALL);
 
-    public ParserUtil() {
+    /**
+     * Private constructor
+     * Util class
+     */
+    private ParserUtil() {
     }
 
     public static List<String> findSeedsFromBody(String body) {
-        return new Scanner(body).findAll(normalSeedPattern)
-                .distinct()
-                .map(matchResult -> matchResult.group(WHOLE_COINCIDENCE))
-                .filter(Objects::nonNull)
-                .filter(Predicate.not(String::isEmpty))
-                .filter(seed -> seed.startsWith(STARTS_WITH_HTTP))
-                .collect(Collectors.toList());
+        try (Scanner scanner = new Scanner(body)) {
+            return scanner.findAll(normalSeedPattern)
+                    .distinct()
+                    .map(matchResult -> matchResult.group(WHOLE_COINCIDENCE))
+                    .filter(Objects::nonNull)
+                    .filter(Predicate.not(String::isEmpty))
+                    .filter(seed -> seed.startsWith(STARTS_WITH_HTTP))
+                    .collect(Collectors.toList());
+        }
     }
-
 }
