@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.webcrawler.util.StringUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,10 +22,17 @@ public class TokenizerTest {
     }
 
     @Test
-    public void shouldTokenizeTreeWords() {
-        List<String> expected = Arrays.asList("nights","0","0");
-        String removedFromSignAndHtml = removerFacade.remove(StringUtil.TEST_HTML_STRING);
-        List<String> actual = tokenizer.tokenize(removedFromSignAndHtml);
+    public void shouldTokenizeIntoWordsHtmlString() {
+        List<String> expected = Arrays.asList("Page", "Title", "My", "First", "Heading", "My", "first", "paragraph", "minsk");
+        String removedFromSignAndHtmlBody = removerFacade.remove(StringUtil.TEST_HTML_STRING);
+        List<String> actual = tokenizer.tokenize(removedFromSignAndHtmlBody);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldReturnEmpty_whenGivenEmptyBody() {
+        List<String> expected = new ArrayList<>();
+        List<String> actual = tokenizer.tokenize("");
         assertEquals(expected, actual);
     }
 

@@ -2,6 +2,9 @@ package org.webcrawler.model;
 
 import java.util.List;
 
+/**
+ * Light page information
+ */
 public class Page {
     private List<String> links;
     private String body;

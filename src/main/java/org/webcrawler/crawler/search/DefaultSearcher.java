@@ -8,6 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * No any searches
+ * If crawl searches was not specified
+ */
 public class DefaultSearcher implements CrawlSearcher {
 
     @Override

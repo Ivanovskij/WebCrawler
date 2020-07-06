@@ -15,23 +15,46 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Concurrent type of worker
+ */
 public class ConcurrentWorkerStrategy implements WorkerStrategy {
 
-    private static final Logger logger = Logger.getLogger(Logger.class.getName());
+    private static final Logger logger = Logger.getLogger(ConcurrentWorkerStrategy.class.getName());
     private static final int LEVEL_DEEPER = 1;
 
     private final ConcurrentLinkedQueue<CrawlingSeed> crawlingSeeds;
     private final ConcurrentLinkedQueue<String> seenSeeds;
     private final ConcurrentMap<CrawlingSeed, Page> pageDetails;
 
+    /**
+     * public constructor
+     * Needs to initialize class fields
+     */
     public ConcurrentWorkerStrategy() {
         crawlingSeeds = new ConcurrentLinkedQueue<>();
         seenSeeds = new ConcurrentLinkedQueue<>();
         pageDetails = new ConcurrentHashMap<>();
     }
 
+    /**
+     * Algorithm of worker:
+     * 1. Add root seed
+     * 2. while queue is not empty
+     * 3. poll seed
+     * 4. make request and get response
+     * 5. processed the information
+     * 6. if depth is not reached add new seeds for crawling and in seenSeeds queue
+     * 7. go to the second point
+     *
+     * @param rootSeed - start vertex from which we run search
+     * @param depth    - depth of search new vertices
+     * @param client   - specified http client
+     * @return information which was found from the seeds
+     */
     @Override
     public Map<CrawlingSeed, Page> run(final String rootSeed, final int depth, final HttpClient client) {
         crawlingSeeds.add(new CrawlingSeed(rootSeed, 0));
@@ -42,9 +65,9 @@ public class ConcurrentWorkerStrategy implements WorkerStrategy {
         HttpResponse<String> response = null;
 
         while (!crawlingSeeds.isEmpty()) {
-            logger.info("queue: " + crawlingSeeds);
+            logger.log(Level.INFO, "queue: {0}", crawlingSeeds);
             crawlingSeed = crawlingSeeds.poll();
-            logger.info("processing url: " + crawlingSeed);
+            logger.log(Level.INFO, "processing url: {0}", crawlingSeed);
 
             try {
                 request = buildRequest(crawlingSeed, Duration.ofMinutes(1));
@@ -62,10 +85,16 @@ public class ConcurrentWorkerStrategy implements WorkerStrategy {
             }
         }
 
-        logger.info("All " + pageDetails.size() + " seeds were processed");
+        logger.log(Level.INFO, "All {0} seeds were processed", pageDetails.size());
         return pageDetails;
     }
 
+    /**
+     * Method adds new seeds for crawling in seenSeeds and current crawling seeds queues
+     *
+     * @param crawledDepth - current vertex depth
+     * @param linksFromPage - found links from processed page
+     */
     private void addNewSeedsForCrawling(final int crawledDepth, final List<String> linksFromPage) {
         linksFromPage.forEach(seed -> {
             if (!seenSeeds.contains(seed)) {
@@ -75,6 +104,13 @@ public class ConcurrentWorkerStrategy implements WorkerStrategy {
         });
     }
 
+    /**
+     * Method build http request
+     *
+     * @param crawlingSeed - uri to create request
+     * @param duration - the timeout duration
+     * @return constructed http request
+     */
     private HttpRequest buildRequest(CrawlingSeed crawlingSeed, Duration duration) {
         return HttpRequest.newBuilder()
                 .uri(URI.create(crawlingSeed.getSeed()))
@@ -82,6 +118,15 @@ public class ConcurrentWorkerStrategy implements WorkerStrategy {
                 .build();
     }
 
+    /**
+     * Method sends request to the specified constructed request
+     *
+     * @param client - specified http client
+     * @param request - constructed request with the given uri
+     * @return received response
+     * @throws IOException io exceptions
+     * @throws InterruptedException interrupted exceptions
+     */
     private HttpResponse<String> sendRequest(HttpClient client,
                                              HttpRequest request) throws IOException, InterruptedException {
         return client.send(request, HttpResponse.BodyHandlers.ofString());
