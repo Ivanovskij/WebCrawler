@@ -12,7 +12,7 @@ Simple web crawler based on Java 11 open JDK.
 # Installation
 Add information as soon as possible
 
-### Development
+# Development
 
 Want to contribute? Great!
 1. Fork the project & clone locally.
@@ -25,8 +25,6 @@ Want to contribute? Great!
 
 If you want to contribute to an open source project, the best one to pick is one that you are using yourself. The maintainers will appreciate it!
 
-### Todos
+# Todos
  - Write MORE Tests
  - Development of parallel workers for quick information scanning
-
-
