@@ -7,7 +7,7 @@ public class SignRemover implements Remover {
     /**
      * Simple method that removes signs from an input string
      * @param input - raw string with signs
-     * @return text without html tags
+     * @return string without signs
      */
     @Override
     public String remove(String input) {
@@ -18,11 +18,11 @@ public class SignRemover implements Remover {
     /**
      * Easter egg
      * Old school method (only for 23+)
-     * @param text - raw text with signs
-     * @return text without sign
+     * @param input - raw string with signs
+     * @return string without signs
      */
-    private String removeSigns(String text) {
-        return text.replaceAll(SIGN_REGEX, " ");
+    private String removeSigns(String input) {
+        return input.replaceAll(SIGN_REGEX, " ");
     }
 
 }

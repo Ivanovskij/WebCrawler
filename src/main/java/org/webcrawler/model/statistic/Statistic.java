@@ -1,5 +1,9 @@
 package org.webcrawler.model.statistic;
 
+/**
+ * Parent statistic
+ * You can easily create a new type of statistics that you need
+ */
 public abstract class Statistic {
 
     protected String seed;

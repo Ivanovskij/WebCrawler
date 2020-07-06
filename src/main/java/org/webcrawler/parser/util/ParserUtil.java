@@ -7,6 +7,9 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * Util parser class
+ */
 public class ParserUtil {
 
     public static final int WHOLE_COINCIDENCE = 1;
@@ -22,6 +25,14 @@ public class ParserUtil {
     private ParserUtil() {
     }
 
+    /**
+     * Method finds seeds from page body
+     * Removes duplicates
+     * Filtering by non null, not empty and starts with http and https
+     *
+     * @param body - page body information from crawling seed
+     * @return found seeds from the given body
+     */
     public static List<String> findSeedsFromBody(String body) {
         try (Scanner scanner = new Scanner(body)) {
             return scanner.findAll(normalSeedPattern)

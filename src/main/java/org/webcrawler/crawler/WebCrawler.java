@@ -10,6 +10,10 @@ import java.time.Duration;
 import java.util.Map;
 
 
+/**
+ * Variation of crawler
+ * Knows can scan web resources
+ */
 public class WebCrawler implements Crawler {
 
     private final WorkerStrategy workerStrategy;
@@ -20,10 +24,24 @@ public class WebCrawler implements Crawler {
             .connectTimeout(Duration.ofSeconds(CONNECTION_TIMEOUT_UNIT))
             .build();
 
+    /**
+     * Sets worker strategy
+     * @param strategy - worker strategy
+     */
     public WebCrawler(WorkerStrategy strategy) {
         this.workerStrategy = strategy;
     }
 
+    /**
+     * Method run worker and received crawled details
+     * Then calls search method of crawler search
+     * with the given search settings for the next processing information
+     *
+     * @param rootSeed      - start vertex from which we want to start crawl
+     * @param depth         - depth of search new vertices
+     * @param crawlSearcher - specified settings of crawler
+     * @return crawlsearcher interface for the next processing information if needed
+     */
     @Override
     public CrawlSearcher crawl(String rootSeed, int depth, CrawlSearcher crawlSearcher) {
         Map<CrawlingSeed, Page> crawledDetails = workerStrategy.run(rootSeed, depth, client);

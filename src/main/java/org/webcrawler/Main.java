@@ -14,11 +14,11 @@ public class Main {
     public static void main(String[] args) {
         Crawler crawler = new WebCrawler(new ConcurrentWorkerStrategy());
         CrawlSearcher crawlSearcher = new TermHintsSearcher(
-                asList("it")
+                asList("oleg", "ivanovsky", "elena", "елена", "ивановский", "ивановская", "ivanovskij")
         );
-        crawler.crawl("https://likeit.by/", 1, crawlSearcher)
+        crawler.crawl("https://vk.com/id267835064/", 1, crawlSearcher)
                 .sort(SortDirection.DESC)
-                .limit(1)
+                .limit(0)
                 .forEach(System.out::println);
     }
 
