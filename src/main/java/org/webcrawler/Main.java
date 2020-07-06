@@ -3,10 +3,8 @@ package org.webcrawler;
 import org.webcrawler.crawler.Crawler;
 import org.webcrawler.crawler.WebCrawler;
 import org.webcrawler.crawler.search.CrawlSearcher;
-import org.webcrawler.crawler.search.CrawlSearcherSettings;
+import org.webcrawler.crawler.search.SortDirection;
 import org.webcrawler.crawler.search.TermHintsSearcher;
-import org.webcrawler.parser.HtmlRemover;
-import org.webcrawler.parser.SignRemover;
 import org.webcrawler.worker.ConcurrentWorkerStrategy;
 
 import static java.util.Arrays.asList;
@@ -35,12 +33,10 @@ public class Main {
 //        worker.executeStrategy(rootSeed, depth, Arrays.asList("font", "java"));
         Crawler crawler = new WebCrawler(new ConcurrentWorkerStrategy());
         CrawlSearcher crawlSearcher = new TermHintsSearcher(
-                asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia"),
-                new CrawlSearcherSettings.Builder()
-                        .setRemovers(asList(new HtmlRemover(), new SignRemover())).build()
+                asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia")
         );
-        crawler.crawl("https://likeit.by/", 1, crawlSearcher)
-                .forEach(System.out::println);
+        crawler.crawl("https://likeit.by/", 2, crawlSearcher).sort(SortDirection.DESC).limit(10)
+            .forEach(System.out::println);
     }
 
 }
