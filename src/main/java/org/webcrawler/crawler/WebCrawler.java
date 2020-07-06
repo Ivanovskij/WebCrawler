@@ -3,12 +3,10 @@ package org.webcrawler.crawler;
 import org.webcrawler.crawler.search.CrawlSearcher;
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
-import org.webcrawler.model.statistic.Statistic;
 import org.webcrawler.worker.WorkerStrategy;
 
 import java.net.http.HttpClient;
 import java.time.Duration;
-import java.util.List;
 import java.util.Map;
 
 
@@ -27,7 +25,7 @@ public class WebCrawler implements Crawler {
     }
 
     @Override
-    public List<Statistic> crawl(String rootSeed, int depth, CrawlSearcher crawlSearcher) {
+    public CrawlSearcher crawl(String rootSeed, int depth, CrawlSearcher crawlSearcher) {
         Map<CrawlingSeed, Page> crawledDetails = workerStrategy.run(rootSeed, depth, client);
         return crawlSearcher.search(crawledDetails);
     }
