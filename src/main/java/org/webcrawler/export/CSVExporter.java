@@ -13,6 +13,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Export data to the csv files
+ */
 public class CSVExporter implements Exporter {
 
     private static final Logger logger = Logger.getLogger(CSVExporter.class.getName());
@@ -21,8 +24,13 @@ public class CSVExporter implements Exporter {
     private static final String DASH = "-";
     public static final String SEPARATELY_FILE_NAME = "SeparatelyStatistic";
     private static final String DEFAULT_DATE_FORMAT = "dd-MM-yyyy-HH-mm-ss";
-    private Calendar calendar = Calendar.getInstance();
+    private final Calendar calendar = Calendar.getInstance();
 
+    /**
+     * Creates csv file with current datetime and serializes all data into it
+     * @param data - specified data to export
+     * @return true - export was successful, false - was not successful
+     */
     @Override
     public boolean exportAllInOne(List<Statistic> data) {
         try (Writer writer = Files.newBufferedWriter(
@@ -37,10 +45,17 @@ public class CSVExporter implements Exporter {
         }
     }
 
+    /**
+     * @return formatted current data with help of simple date format
+     */
     private String getFormattedCurrentDate() {
         return new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(calendar.getTime());
     }
 
+    /**
+     * Builds StatefulBean with the specified settings
+     * @return StatefulBean which is needed to save into csv
+     */
     private StatefulBeanToCsv<Statistic> getDefaultStatefulBeanToCsv(Writer writer) {
         return new StatefulBeanToCsvBuilder<Statistic>(writer)
                 .withSeparator(ICSVWriter.DEFAULT_SEPARATOR)
@@ -51,6 +66,13 @@ public class CSVExporter implements Exporter {
                 .build();
     }
 
+    /**
+     * Calculates max number of pages,
+     * then creates csv files with current datetime and writes data to them
+     * @param data          - specified data to export
+     * @param numberOfPages - number of creating pages
+     * @return true - export was successful, false - was not successful
+     */
     @Override
     public boolean exportSeparately(List<Statistic> data, int numberOfPages) {
         if (numberOfPages < 0) {
