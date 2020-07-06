@@ -5,7 +5,12 @@ import org.webcrawler.crawler.WebCrawler;
 import org.webcrawler.crawler.search.CrawlSearcher;
 import org.webcrawler.crawler.search.SortDirection;
 import org.webcrawler.crawler.search.TermHintsSearcher;
+import org.webcrawler.export.CSVExporter;
+import org.webcrawler.export.Exporter;
+import org.webcrawler.model.statistic.Statistic;
 import org.webcrawler.worker.ConcurrentWorkerStrategy;
+
+import java.util.List;
 
 import static java.util.Arrays.asList;
 
@@ -35,8 +40,12 @@ public class Main {
         CrawlSearcher crawlSearcher = new TermHintsSearcher(
                 asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia")
         );
-        crawler.crawl("https://likeit.by/", 2, crawlSearcher).sort(SortDirection.DESC).limit(10)
-            .forEach(System.out::println);
+        List<Statistic> allStatistic = crawler.crawl("https://likeit.by/", 1, crawlSearcher)
+                .sort(SortDirection.DESC)
+                .limit(10);
+        Exporter csv = new CSVExporter();
+        csv.exportAllInOne(allStatistic);
+        csv.exportSeparately(allStatistic, 3);
     }
 
 }
