@@ -119,7 +119,7 @@ public class ConcurrentWorkerStrategy implements WorkerStrategy {
     }
 
     /**
-     * Method sends request to specified
+     * Method sends request to the specified constructed request
      *
      * @param client - specified http client
      * @param request - constructed request with the given uri
