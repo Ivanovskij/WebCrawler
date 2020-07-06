@@ -35,8 +35,10 @@ public class Main {
         CrawlSearcher crawlSearcher = new TermHintsSearcher(
                 asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia")
         );
-        crawler.crawl("https://likeit.by/", 2, crawlSearcher).sort(SortDirection.DESC).limit(10)
-            .forEach(System.out::println);
+        crawler.crawl("https://likeit.by/", 1, crawlSearcher)
+                .sort(SortDirection.DESC)
+                .limit(1)
+                .forEach(System.out::println);
     }
 
 }

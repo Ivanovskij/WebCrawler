@@ -20,6 +20,7 @@ public class TermHintsSearcher implements CrawlSearcher {
 
     public static final long NOT_FOUND_TERM = 0L;
     public static final String SORT_DIRECTION_IS_NOT_SUPPORTED = "This sort direction is not supported";
+    public static final int DISPLAY_ALL_DETAILS = 0;
     private final Tokenizer tokenizer;
     private final List<String> terms;
     private final List<TermStatistic> statistics;
@@ -64,9 +65,15 @@ public class TermHintsSearcher implements CrawlSearcher {
 
     @Override
     public List<Statistic> limit(long limit) {
-        return statistics.stream()
-                .limit(limit)
-                .collect(Collectors.toList());
+        if (limit < 0) {
+            throw new IllegalArgumentException("Limit should be more than zero");
+        } else if (limit == DISPLAY_ALL_DETAILS) {
+            return new ArrayList<>(statistics);
+        } else {
+            return statistics.stream()
+                    .limit(limit)
+                    .collect(Collectors.toList());
+        }
     }
 
     private Map<String, Long> getTotalHints(String text) {
