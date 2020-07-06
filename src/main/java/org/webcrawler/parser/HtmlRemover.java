@@ -4,9 +4,6 @@ public class HtmlRemover implements Remover {
 
     private static final String HTML_TAGS_REGEX = "<.*?>";
 
-    public HtmlRemover() {
-    }
-
     /**
      * Easter egg
      * Old school method (only for 23+)

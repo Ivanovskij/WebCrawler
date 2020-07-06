@@ -4,9 +4,6 @@ public class SignRemover implements Remover {
 
     private static final String SIGN_REGEX = "\\W";
 
-    public SignRemover() {
-    }
-
     /**
      * Simple method that removes signs from an input string
      * @param input - raw string with signs
