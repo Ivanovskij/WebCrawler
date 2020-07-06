@@ -11,7 +11,17 @@ import java.util.Map;
 public class DefaultSearcher implements CrawlSearcher {
 
     @Override
-    public List<Statistic> search(Map<CrawlingSeed, Page> details) {
+    public CrawlSearcher search(Map<CrawlingSeed, Page> details) {
+        return this;
+    }
+
+    @Override
+    public CrawlSearcher sort(SortDirection direction) {
+        return this;
+    }
+
+    @Override
+    public List<Statistic> limit(long limit) {
         return Collections.emptyList();
     }
 }

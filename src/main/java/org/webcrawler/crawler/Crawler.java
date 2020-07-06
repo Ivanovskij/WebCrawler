@@ -1,11 +1,12 @@
 package org.webcrawler.crawler;
 
 import org.webcrawler.crawler.search.CrawlSearcher;
-import org.webcrawler.model.statistic.Statistic;
-
-import java.util.List;
+import org.webcrawler.crawler.search.DefaultSearcher;
 
 public interface Crawler {
-    List<Statistic> crawl(String rootSeed, int depth, CrawlSearcher crawlSearcher);
-    List<Statistic> crawl(String rootSeed, int depth);
+    CrawlSearcher crawl(String rootSeed, int depth, CrawlSearcher crawlSearcher);
+
+    default CrawlSearcher crawl(String rootSeed, int depth) {
+        return crawl(rootSeed, depth, new DefaultSearcher());
+    }
 }

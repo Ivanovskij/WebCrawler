@@ -3,12 +3,14 @@ package org.webcrawler;
 import org.webcrawler.crawler.Crawler;
 import org.webcrawler.crawler.WebCrawler;
 import org.webcrawler.crawler.search.CrawlSearcher;
-import org.webcrawler.crawler.search.CrawlSearcherSettings;
+import org.webcrawler.crawler.search.SortDirection;
 import org.webcrawler.crawler.search.TermHintsSearcher;
-import org.webcrawler.model.statistic.TermStatistic;
-import org.webcrawler.parser.HtmlRemover;
-import org.webcrawler.parser.SignRemover;
+import org.webcrawler.export.CSVExporter;
+import org.webcrawler.export.Exporter;
+import org.webcrawler.model.statistic.Statistic;
 import org.webcrawler.worker.ConcurrentWorkerStrategy;
+
+import java.util.List;
 
 import static java.util.Arrays.asList;
 
@@ -36,13 +38,14 @@ public class Main {
 //        worker.executeStrategy(rootSeed, depth, Arrays.asList("font", "java"));
         Crawler crawler = new WebCrawler(new ConcurrentWorkerStrategy());
         CrawlSearcher crawlSearcher = new TermHintsSearcher(
-                asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia"),
-                new CrawlSearcherSettings.Builder()
-                        .setRemovers(asList(new HtmlRemover(), new SignRemover())).build()
+                asList("telegram", "twitter", "facebook", "likeit", "Minsk", "Russia")
         );
-        crawler.crawl("https://likeit.by/", 1, crawlSearcher).stream()
-            .filter(statistic -> ((TermStatistic)statistic).getTermsHints().size() > 0)
-                .forEach(System.out::println);
+        List<Statistic> allStatistic = crawler.crawl("https://likeit.by/", 1, crawlSearcher)
+                .sort(SortDirection.DESC)
+                .limit(10);
+        Exporter csv = new CSVExporter();
+        csv.exportAllInOne(allStatistic);
+        csv.exportSeparately(allStatistic, 3);
     }
 
 }

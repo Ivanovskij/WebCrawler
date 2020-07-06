@@ -9,6 +9,8 @@ import java.util.Map;
 
 public interface CrawlSearcher {
 
-    List<Statistic> search(Map<CrawlingSeed, Page> details);
+    CrawlSearcher search(Map<CrawlingSeed, Page> details);
+    CrawlSearcher sort(SortDirection direction);
+    List<Statistic> limit(long limit);
 
 }
