@@ -22,7 +22,7 @@ public class TokenizerTest {
     }
 
     @Test
-    public void shouldTokenizeOnWordsHtmlString() {
+    public void shouldTokenizeIntoWordsHtmlString() {
         List<String> expected = Arrays.asList("Page", "Title", "My", "First", "Heading", "My", "first", "paragraph", "minsk");
         String removedFromSignAndHtmlBody = removerFacade.remove(StringUtil.TEST_HTML_STRING);
         List<String> actual = tokenizer.tokenize(removedFromSignAndHtmlBody);

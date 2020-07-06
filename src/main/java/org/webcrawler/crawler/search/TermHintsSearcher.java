@@ -23,6 +23,7 @@ public class TermHintsSearcher implements CrawlSearcher {
 
     public static final long NOT_FOUND_TERM = 0L;
     public static final String SORT_DIRECTION_IS_NOT_SUPPORTED = "This sort direction is not supported";
+
     public static final int DISPLAY_ALL_STATISTICS = 0;
     private final Tokenizer tokenizer;
     private final List<String> terms;
@@ -39,6 +40,7 @@ public class TermHintsSearcher implements CrawlSearcher {
         statistics = new ArrayList<>();
         removerFacade = new RemoverFacade(Arrays.asList(new HtmlRemover(), new SignRemover()));
     }
+
 
     /**
      * Method bypasses the crawled details and:
@@ -104,6 +106,7 @@ public class TermHintsSearcher implements CrawlSearcher {
                     .collect(Collectors.toList());
         }
     }
+
 
     /**
      * Method tokenizes body into tokens and finds specified terms,

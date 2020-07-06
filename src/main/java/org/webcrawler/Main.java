@@ -5,7 +5,10 @@ import org.webcrawler.crawler.WebCrawler;
 import org.webcrawler.crawler.search.CrawlSearcher;
 import org.webcrawler.crawler.search.SortDirection;
 import org.webcrawler.crawler.search.TermHintsSearcher;
+import org.webcrawler.model.statistic.Statistic;
 import org.webcrawler.worker.ConcurrentWorkerStrategy;
+
+import java.util.List;
 
 import static java.util.Arrays.asList;
 
@@ -14,12 +17,11 @@ public class Main {
     public static void main(String[] args) {
         Crawler crawler = new WebCrawler(new ConcurrentWorkerStrategy());
         CrawlSearcher crawlSearcher = new TermHintsSearcher(
-                asList("oleg", "ivanovsky", "elena", "елена", "ивановский", "ивановская", "ivanovskij")
+                asList("oleg", "test")
         );
-        crawler.crawl("https://vk.com/id267835064/", 1, crawlSearcher)
+        List<Statistic> allStatistic = crawler.crawl("https://hello.com", 1, crawlSearcher)
                 .sort(SortDirection.DESC)
-                .limit(0)
-                .forEach(System.out::println);
+                .limit(10);
     }
 
 }

@@ -7,6 +7,7 @@ import org.webcrawler.crawler.search.DefaultSearcher;
  * General interface for all crawlers
  */
 public interface Crawler {
+
     /**
      * Crawl information based on the given params
      *
@@ -24,6 +25,7 @@ public interface Crawler {
      * @param depth    - depth of search new vertices
      * @return crawlsearcher interface for the next processing information if needed
      */
+
     default CrawlSearcher crawl(String rootSeed, int depth) {
         return crawl(rootSeed, depth, new DefaultSearcher());
     }
