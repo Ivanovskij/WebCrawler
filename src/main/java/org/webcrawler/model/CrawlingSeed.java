@@ -1,5 +1,8 @@
 package org.webcrawler.model;
 
+/**
+ * Necessary information about crawling seed
+ */
 public class CrawlingSeed {
     private String seed;
     private int depth;
