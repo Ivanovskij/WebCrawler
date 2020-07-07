@@ -2,6 +2,10 @@ package org.webcrawler.unit.parser;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.webcrawler.parser.HtmlRemover;
+import org.webcrawler.parser.Remover;
+import org.webcrawler.parser.RemoverFacade;
+import org.webcrawler.parser.SignRemover;
 import org.webcrawler.unit.util.StringUtil;
 
 import java.util.Arrays;

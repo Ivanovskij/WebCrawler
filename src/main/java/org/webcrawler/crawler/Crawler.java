@@ -1,7 +1,7 @@
-package org.webcrawler.unit.crawler;
+package org.webcrawler.crawler;
 
-import org.webcrawler.unit.crawler.search.CrawlSearcher;
-import org.webcrawler.unit.crawler.search.DefaultSearcher;
+import org.webcrawler.crawler.search.CrawlSearcher;
+import org.webcrawler.crawler.search.DefaultSearcher;
 
 /**
  * General interface for all crawlers

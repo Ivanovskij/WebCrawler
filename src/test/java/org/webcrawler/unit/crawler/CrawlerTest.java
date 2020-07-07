@@ -2,9 +2,10 @@ package org.webcrawler.unit.crawler;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.webcrawler.unit.crawler.search.CrawlSearcher;
-import org.webcrawler.unit.crawler.search.DefaultSearcher;
-import org.webcrawler.unit.crawler.search.SortDirection;
+import org.webcrawler.crawler.Crawler;
+import org.webcrawler.crawler.search.CrawlSearcher;
+import org.webcrawler.crawler.search.DefaultSearcher;
+import org.webcrawler.crawler.search.SortDirection;
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
 import org.webcrawler.model.statistic.Statistic;

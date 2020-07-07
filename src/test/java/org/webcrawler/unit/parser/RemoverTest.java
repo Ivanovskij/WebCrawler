@@ -1,6 +1,7 @@
 package org.webcrawler.unit.parser;
 
 import org.junit.Test;
+import org.webcrawler.parser.Remover;
 
 import static org.junit.Assert.assertEquals;
 

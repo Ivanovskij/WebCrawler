@@ -1,8 +1,8 @@
-package org.webcrawler.unit.worker;
+package org.webcrawler.worker;
 
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
-import org.webcrawler.unit.parser.util.ParserUtil;
+import org.webcrawler.parser.util.ParserUtil;
 
 import java.io.IOException;
 import java.net.URI;

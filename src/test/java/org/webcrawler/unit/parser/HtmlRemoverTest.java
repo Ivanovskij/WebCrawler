@@ -2,6 +2,8 @@ package org.webcrawler.unit.parser;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.webcrawler.parser.HtmlRemover;
+import org.webcrawler.parser.Remover;
 import org.webcrawler.unit.util.StringUtil;
 
 import static org.junit.Assert.assertEquals;

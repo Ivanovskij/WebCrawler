@@ -1,13 +1,13 @@
-package org.webcrawler.unit.crawler.search;
+package org.webcrawler.crawler.search;
 
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
 import org.webcrawler.model.statistic.Statistic;
 import org.webcrawler.model.statistic.TermStatistic;
-import org.webcrawler.unit.parser.HtmlRemover;
-import org.webcrawler.unit.parser.RemoverFacade;
-import org.webcrawler.unit.parser.SignRemover;
-import org.webcrawler.unit.parser.Tokenizer;
+import org.webcrawler.parser.HtmlRemover;
+import org.webcrawler.parser.RemoverFacade;
+import org.webcrawler.parser.SignRemover;
+import org.webcrawler.parser.Tokenizer;
 
 import java.util.*;
 import java.util.function.Function;

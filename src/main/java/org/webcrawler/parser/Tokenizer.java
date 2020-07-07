@@ -1,4 +1,4 @@
-package org.webcrawler.unit.parser;
+package org.webcrawler.parser;
 
 import java.util.Collections;
 import java.util.List;

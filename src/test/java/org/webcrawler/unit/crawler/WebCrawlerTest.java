@@ -6,10 +6,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.webcrawler.unit.crawler.search.CrawlSearcher;
-import org.webcrawler.unit.crawler.search.DefaultSearcher;
+import org.webcrawler.crawler.WebCrawler;
+import org.webcrawler.crawler.search.CrawlSearcher;
+import org.webcrawler.crawler.search.DefaultSearcher;
 import org.webcrawler.unit.util.StringUtil;
-import org.webcrawler.unit.worker.WorkerStrategy;
+import org.webcrawler.worker.WorkerStrategy;
 
 import java.net.http.HttpClient;
 

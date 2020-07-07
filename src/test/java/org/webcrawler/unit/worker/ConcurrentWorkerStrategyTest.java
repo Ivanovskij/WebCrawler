@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
 import org.webcrawler.unit.util.StringUtil;
+import org.webcrawler.worker.ConcurrentWorkerStrategy;
+import org.webcrawler.worker.WorkerStrategy;
 
 import java.io.IOException;
 import java.net.http.HttpClient;

@@ -1,9 +1,9 @@
-package org.webcrawler.unit.crawler;
+package org.webcrawler.crawler;
 
-import org.webcrawler.unit.crawler.search.CrawlSearcher;
+import org.webcrawler.crawler.search.CrawlSearcher;
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
-import org.webcrawler.unit.worker.WorkerStrategy;
+import org.webcrawler.worker.WorkerStrategy;
 
 import java.net.http.HttpClient;
 import java.time.Duration;

@@ -4,6 +4,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.webcrawler.parser.util.ParserUtil;
 
 import java.util.Arrays;
 import java.util.Collections;

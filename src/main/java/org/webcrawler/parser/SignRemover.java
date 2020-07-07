@@ -1,4 +1,4 @@
-package org.webcrawler.unit.parser;
+package org.webcrawler.parser;
 
 public class SignRemover implements Remover {
 

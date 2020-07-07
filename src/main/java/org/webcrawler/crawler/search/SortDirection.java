@@ -1,4 +1,4 @@
-package org.webcrawler.unit.crawler.search;
+package org.webcrawler.crawler.search;
 
 /**
  * Direction of sort statistics

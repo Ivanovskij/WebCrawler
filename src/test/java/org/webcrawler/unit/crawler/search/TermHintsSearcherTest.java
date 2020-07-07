@@ -2,6 +2,8 @@ package org.webcrawler.unit.crawler.search;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.webcrawler.crawler.search.CrawlSearcher;
+import org.webcrawler.crawler.search.TermHintsSearcher;
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
 import org.webcrawler.model.statistic.Statistic;

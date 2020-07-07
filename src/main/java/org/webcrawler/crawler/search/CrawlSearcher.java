@@ -1,4 +1,4 @@
-package org.webcrawler.unit.crawler.search;
+package org.webcrawler.crawler.search;
 
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;

@@ -1,12 +1,12 @@
 package org.webcrawler;
 
-import org.webcrawler.unit.crawler.Crawler;
-import org.webcrawler.unit.crawler.WebCrawler;
-import org.webcrawler.unit.crawler.search.CrawlSearcher;
-import org.webcrawler.unit.crawler.search.SortDirection;
-import org.webcrawler.unit.crawler.search.TermHintsSearcher;
+import org.webcrawler.crawler.Crawler;
+import org.webcrawler.crawler.WebCrawler;
+import org.webcrawler.crawler.search.CrawlSearcher;
+import org.webcrawler.crawler.search.SortDirection;
+import org.webcrawler.crawler.search.TermHintsSearcher;
 import org.webcrawler.model.statistic.Statistic;
-import org.webcrawler.unit.worker.ConcurrentWorkerStrategy;
+import org.webcrawler.worker.ConcurrentWorkerStrategy;
 
 import java.util.List;
 
