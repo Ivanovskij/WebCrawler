@@ -2,6 +2,8 @@ package org.webcrawler.unit.util;
 
 public class StringUtil {
 
+    private StringUtil() {}
+
     public static final String SPACE_DELIMITER = " ";
     public static final String REMOVE_ALL_WHITESPACES_REGEX = "\\s+";
 

@@ -15,12 +15,11 @@ import static org.junit.Assert.assertEquals;
 
 public class RemoverFacadeTest {
 
-    private List<Remover> removers;
     private RemoverFacade removerFacade;
 
     @Before
     public void setUp() {
-        removers = Arrays.asList(new HtmlRemover(), new SignRemover());
+        List<Remover> removers = Arrays.asList(new HtmlRemover(), new SignRemover());
         removerFacade = new RemoverFacade(removers);
     }
 
@@ -28,7 +27,6 @@ public class RemoverFacadeTest {
     public void shouldReturnWordWithoutHtmlAndSigns() {
         String actual = StringUtil.splitByOneWhitespace(
                 removerFacade.remove("%&())&^%$#<p>Hello</p>//..,,"));
-        String expected = StringUtil.splitByOneWhitespace("Hello");
         assertEquals("Hello", actual);
     }
 
