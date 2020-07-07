@@ -5,6 +5,9 @@ public class StringUtil {
     public static final String SPACE_DELIMITER = " ";
     public static final String REMOVE_ALL_WHITESPACES_REGEX = "\\s+";
 
+    public static final String DEFAULT_SEED = "https://hello.com";
+    public static final String PARAGRAPH_TERM = "paragraph";
+
     public static final String TEST_HTML_STRING = "<!DOCTYPE html>\n" +
             "<html>\n" +
             "<head>\n" +
