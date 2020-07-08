@@ -1,4 +1,4 @@
-package org.webcrawler.unit.parser.util;
+package org.webcrawler.parser.util;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;

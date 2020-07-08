@@ -1,4 +1,4 @@
-package org.webcrawler.unit.parser;
+package org.webcrawler.parser;
 
 import org.junit.Test;
 import org.webcrawler.parser.Remover;

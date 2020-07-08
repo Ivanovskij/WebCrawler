@@ -1,15 +1,14 @@
-package org.webcrawler.unit.crawler;
+package org.webcrawler.crawler;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.webcrawler.crawler.Crawler;
 import org.webcrawler.crawler.search.CrawlSearcher;
 import org.webcrawler.crawler.search.DefaultSearcher;
 import org.webcrawler.crawler.search.SortDirection;
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
 import org.webcrawler.model.statistic.Statistic;
-import org.webcrawler.unit.util.StringUtil;
+import org.webcrawler.util.StringUtil;
 
 import java.util.Collections;
 import java.util.HashMap;

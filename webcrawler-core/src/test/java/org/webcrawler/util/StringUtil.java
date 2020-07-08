@@ -1,4 +1,4 @@
-package org.webcrawler.unit.util;
+package org.webcrawler.util;
 
 public class StringUtil {
 

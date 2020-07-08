@@ -1,14 +1,12 @@
-package org.webcrawler.unit.crawler.search;
+package org.webcrawler.crawler.search;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.webcrawler.crawler.search.CrawlSearcher;
-import org.webcrawler.crawler.search.TermHintsSearcher;
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
 import org.webcrawler.model.statistic.Statistic;
 import org.webcrawler.model.statistic.TermStatistic;
-import org.webcrawler.unit.util.StringUtil;
+import org.webcrawler.util.StringUtil;
 
 import java.util.Arrays;
 import java.util.Collections;

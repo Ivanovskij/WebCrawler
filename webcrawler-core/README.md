@@ -1,6 +1,5 @@
 ![Java CI with Maven](https://github.com/Ivanovskij/WebCrawler/workflows/Java%20CI%20with%20Maven/badge.svg)
 
-
 # Open source WebCrawler
 Simple web crawler based on Java 11 open JDK.
 
@@ -8,9 +7,6 @@ Simple web crawler based on Java 11 open JDK.
   - Deep search
   - Terms search sorting by total hints
   - Exports statistics to csv file or to separate csv files
-
-# Installation
-Add information as soon as possible
 
 # Development
 
@@ -26,5 +22,4 @@ Want to contribute? Great!
 If you want to contribute to an open source project, the best one to pick is one that you are using yourself. The maintainers will appreciate it!
 
 # Todos
- - Write MORE Tests
- - Development of parallel workers for quick information scanning
+ - See Issues
