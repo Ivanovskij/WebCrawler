@@ -26,7 +26,3 @@ hs_err_pid*
 /.idea
 /target
 .*iml
-/WebCrawler.iml
-/artifacts
-/.gradle
-/webcrawler-client/webcrawler-client.iml
