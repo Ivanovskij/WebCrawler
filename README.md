@@ -4,9 +4,9 @@
 Simple web crawler based on Java 11 open JDK.
 
 # Overview
-- [Features/Supports](https://github.com/Ivanovskij/WebCrawler/tree/dev#featuressupports)
-- [Installation](https://github.com/Ivanovskij/WebCrawler/tree/dev#installation)
-- [Development](https://github.com/Ivanovskij/WebCrawler/tree/dev#development)
+- [Features/Supports](https://github.com/Ivanovskij/WebCrawler/tree/master#featuressupports)
+- [Installation](https://github.com/Ivanovskij/WebCrawler/tree/master#installation)
+- [Development](https://github.com/Ivanovskij/WebCrawler/tree/master#development)
 
 # Features/Supports
   - Deep search
@@ -14,9 +14,9 @@ Simple web crawler based on Java 11 open JDK.
   - Exports statistics to csv file or to separate csv files
 
 # Installation
-1. Download Launcher dir.
+1. Download latest realise files.
 2. Check crawl settings in crawlsearcher.txt.
-3. Run WebCrawler-1.0-SNAPSHOT.jar
+3. Run WebCrawler.jar
 4. When crawler finishes its work, you will see reports in the csv files if you included -csv flag.
 *******
 crawlsearcher.txt allows you to change:<br><br>
