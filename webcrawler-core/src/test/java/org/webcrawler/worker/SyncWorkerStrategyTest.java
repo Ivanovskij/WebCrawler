@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class ConcurrentWorkerStrategyTest {
+public class SyncWorkerStrategyTest {
 
     private WorkerStrategy workerStrategy;
     private HttpClient httpClient;
@@ -24,7 +24,7 @@ public class ConcurrentWorkerStrategyTest {
 
     @Before
     public void setUp() {
-        workerStrategy = new ConcurrentWorkerStrategy();
+        workerStrategy = new SyncWorkerStrategy();
         httpClient = mock(HttpClient.class);
         response = mock(HttpResponse.class);
     }
