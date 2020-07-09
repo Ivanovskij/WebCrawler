@@ -10,34 +10,30 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ConcurrentMap;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Concurrent type of worker
  */
-public class ConcurrentWorkerStrategy implements WorkerStrategy {
+public class SyncWorkerStrategy implements WorkerStrategy {
 
-    private static final Logger logger = Logger.getLogger(ConcurrentWorkerStrategy.class.getName());
+    private static final Logger logger = Logger.getLogger(SyncWorkerStrategy.class.getName());
     private static final int LEVEL_DEEPER = 1;
 
-    private final ConcurrentLinkedQueue<CrawlingSeed> crawlingSeeds;
-    private final ConcurrentLinkedQueue<String> seenSeeds;
-    private final ConcurrentMap<CrawlingSeed, Page> pageDetails;
+    private final Queue<CrawlingSeed> crawlingSeeds;
+    private final Queue<String> seenSeeds;
+    private final Map<CrawlingSeed, Page> pageDetails;
 
     /**
      * public constructor
      * Needs to initialize class fields
      */
-    public ConcurrentWorkerStrategy() {
-        crawlingSeeds = new ConcurrentLinkedQueue<>();
-        seenSeeds = new ConcurrentLinkedQueue<>();
-        pageDetails = new ConcurrentHashMap<>();
+    public SyncWorkerStrategy() {
+        crawlingSeeds = new LinkedList<>();
+        seenSeeds = new LinkedList<>();
+        pageDetails = new HashMap<>();
     }
 
     /**
