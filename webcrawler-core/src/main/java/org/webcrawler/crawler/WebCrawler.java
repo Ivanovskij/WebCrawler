@@ -8,6 +8,8 @@ import org.webcrawler.worker.WorkerStrategy;
 import java.net.http.HttpClient;
 import java.time.Duration;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -15,6 +17,8 @@ import java.util.Map;
  * Knows can scan web resources
  */
 public class WebCrawler implements Crawler {
+
+    private static final Logger logger = Logger.getLogger(WebCrawler.class.getName());
 
     private final WorkerStrategy workerStrategy;
     private static final int CONNECTION_TIMEOUT_UNIT = 20;
@@ -43,8 +47,10 @@ public class WebCrawler implements Crawler {
      * @return crawlsearcher interface for the next processing information if needed
      */
     @Override
-    public CrawlSearcher crawl(String rootSeed, int depth, CrawlSearcher crawlSearcher) {
-        Map<CrawlingSeed, Page> crawledDetails = workerStrategy.run(rootSeed, depth, client);
+    public CrawlSearcher crawl(String rootSeed, int depth, int maxVisitedPages, CrawlSearcher crawlSearcher) {
+        logger.log(Level.INFO, "Web crawler is ready and starts to work. Params: rootSeed={0}, depth={1}, maxVisitedPages={2}",
+                new Object[]{rootSeed, depth, maxVisitedPages});
+        Map<CrawlingSeed, Page> crawledDetails = workerStrategy.run(rootSeed, depth, maxVisitedPages, client);
         return crawlSearcher.search(crawledDetails);
     }
 
