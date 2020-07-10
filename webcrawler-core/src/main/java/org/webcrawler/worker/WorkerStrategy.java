@@ -22,5 +22,5 @@ public interface WorkerStrategy {
      * @param client - specified http client
      * @return information which was found from the seeds
      */
-    Map<CrawlingSeed, Page> run(String rootSeed, int depth, HttpClient client);
+    Map<CrawlingSeed, Page> run(String rootSeed, int depth, int maxVisitedPages, HttpClient client);
 }

@@ -33,7 +33,7 @@ public class WebCrawlerTest {
 
     @Test
     public void shouldReturnDefaultCrawlerSearcher() {
-        CrawlSearcher defaultSearcher = crawler.crawl(StringUtil.DEFAULT_SEED, 0, crawlSearcher);
+        CrawlSearcher defaultSearcher = crawler.crawl(StringUtil.DEFAULT_SEED, 0, 1, crawlSearcher);
         assertTrue(defaultSearcher instanceof DefaultSearcher);
     }
 }

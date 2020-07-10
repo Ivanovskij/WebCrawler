@@ -52,7 +52,10 @@ public class SyncWorkerStrategy implements WorkerStrategy {
      * @return information which was found from the seeds
      */
     @Override
-    public Map<CrawlingSeed, Page> run(final String rootSeed, final int depth, final HttpClient client) {
+    public Map<CrawlingSeed, Page> run(final String rootSeed,
+                                       final int depth,
+                                       final int maxVisitedPages,
+                                       final HttpClient client) {
         crawlingSeeds.add(new CrawlingSeed(rootSeed, 0));
         seenSeeds.add(rootSeed);
 
@@ -60,7 +63,7 @@ public class SyncWorkerStrategy implements WorkerStrategy {
         HttpRequest request;
         HttpResponse<String> response = null;
 
-        while (!crawlingSeeds.isEmpty()) {
+        while (!crawlingSeeds.isEmpty() && maxVisitedPages > pageDetails.size()) {
             logger.log(Level.INFO, "queue: {0}", crawlingSeeds);
             crawlingSeed = crawlingSeeds.poll();
             logger.log(Level.INFO, "processing url: {0}", crawlingSeed);
@@ -68,7 +71,7 @@ public class SyncWorkerStrategy implements WorkerStrategy {
             try {
                 request = buildRequest(crawlingSeed, Duration.ofMinutes(1));
                 response = sendRequest(client, request);
-            } catch (IOException | IllegalArgumentException | InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 logger.warning(e.getMessage());
             }
 

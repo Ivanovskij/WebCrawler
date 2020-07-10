@@ -33,7 +33,7 @@ public class SyncWorkerStrategyTest {
     public void shouldReturnSimilarSizeOfOnePageDetail() throws IOException, InterruptedException {
         when(response.body()).thenReturn(StringUtil.TEST_HTML_STRING);
         doReturn(response).when(httpClient).send(any(), any());
-        Map<CrawlingSeed, Page> actual = workerStrategy.run(StringUtil.DEFAULT_SEED, 0, httpClient);
+        Map<CrawlingSeed, Page> actual = workerStrategy.run(StringUtil.DEFAULT_SEED, 0,1, httpClient);
         Map<CrawlingSeed, Page> expected = new ConcurrentHashMap<>();
         expected.put(new CrawlingSeed(StringUtil.DEFAULT_SEED, 0),
                         new Page(Collections.singletonList("https://hello.html"), StringUtil.TEST_HTML_STRING));
@@ -45,7 +45,7 @@ public class SyncWorkerStrategyTest {
     public void shouldReturnOnePageDetail() throws IOException, InterruptedException {
         when(response.body()).thenReturn(StringUtil.TEST_HTML_STRING);
         doReturn(response).when(httpClient).send(any(), any());
-        Map<CrawlingSeed, Page> actual = workerStrategy.run(StringUtil.DEFAULT_SEED, 0, httpClient);
+        Map<CrawlingSeed, Page> actual = workerStrategy.run(StringUtil.DEFAULT_SEED, 0,1, httpClient);
         verify(httpClient, times(1)).send(any(), any());
         Map<CrawlingSeed, Page> expected = new ConcurrentHashMap<>();
         expected.put(new CrawlingSeed(StringUtil.DEFAULT_SEED, 0),
