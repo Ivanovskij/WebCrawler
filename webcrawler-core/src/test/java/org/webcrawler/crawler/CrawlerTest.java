@@ -51,7 +51,7 @@ public class CrawlerTest {
 
     private static class DefaultCrawler implements Crawler {
         @Override
-        public CrawlSearcher crawl(String rootSeed, int depth, CrawlSearcher crawlSearcher) {
+        public CrawlSearcher crawl(String rootSeed, int depth, int maxVisitedPages, CrawlSearcher crawlSearcher) {
             Map<CrawlingSeed, Page> details = new HashMap<>();
             details.put(new CrawlingSeed(StringUtil.DEFAULT_SEED, 0),
                     new Page(Collections.singletonList(""), ""));
