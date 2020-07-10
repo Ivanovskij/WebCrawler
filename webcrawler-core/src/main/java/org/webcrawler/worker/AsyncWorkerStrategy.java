@@ -55,13 +55,16 @@ public class AsyncWorkerStrategy implements WorkerStrategy {
      * @return information which was found from the seeds
      */
     @Override
-    public Map<CrawlingSeed, Page> run(final String rootSeed, final int depth, final HttpClient client) {
+    public Map<CrawlingSeed, Page> run(final String rootSeed,
+                                       final int depth,
+                                       final int maxVisitedPages,
+                                       final HttpClient client) {
         crawlingSeeds.add(new CrawlingSeed(rootSeed, 0));
         seenSeeds.add(rootSeed);
 
         CrawlingSeed crawlingSeed;
 
-        while (!crawlingSeeds.isEmpty()) {
+        while (!crawlingSeeds.isEmpty() && maxVisitedPages > pageDetails.size()) {
             logger.log(Level.INFO, "queue: {0}", crawlingSeeds);
             crawlingSeed = crawlingSeeds.poll();
             logger.log(Level.INFO, "processing url: {0}", crawlingSeed);
@@ -72,6 +75,7 @@ public class AsyncWorkerStrategy implements WorkerStrategy {
                     .thenApply(response -> {
                         String responseBody = response != null ? response.body() : "";
                         List<String> linksFromPage = ParserUtil.findSeedsFromBody(responseBody);
+                        logger.log(Level.INFO,"for {0} were found {1} urls.", new Object[]{finalCrawlingSeed.getSeed(), linksFromPage.size()});
                         pageDetails.put(finalCrawlingSeed, new Page(linksFromPage, responseBody));
                         return linksFromPage;
                     })

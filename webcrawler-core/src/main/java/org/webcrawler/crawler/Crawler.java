@@ -8,6 +8,8 @@ import org.webcrawler.crawler.search.DefaultSearcher;
  */
 public interface Crawler {
 
+    int DEFAULT_MAX_VISITED_PAGES = 3;
+
     /**
      * Crawl information based on the given params
      *
@@ -16,7 +18,7 @@ public interface Crawler {
      * @param crawlSearcher - specified settings of crawler
      * @return crawlsearcher interface for the next processing information if needed
      */
-    CrawlSearcher crawl(String rootSeed, int depth, CrawlSearcher crawlSearcher);
+    CrawlSearcher crawl(String rootSeed, int depth, int maxVisitedPages, CrawlSearcher crawlSearcher);
 
     /**
      * This method just only crawl the information without any searches
@@ -27,6 +29,6 @@ public interface Crawler {
      */
 
     default CrawlSearcher crawl(String rootSeed, int depth) {
-        return crawl(rootSeed, depth, new DefaultSearcher());
+        return crawl(rootSeed, depth, DEFAULT_MAX_VISITED_PAGES, new DefaultSearcher());
     }
 }
