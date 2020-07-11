@@ -1,6 +1,6 @@
 package org.webcrawler.worker;
 
-import org.webcrawler.exception.ExceptionUtils;
+import org.webcrawler.exception.ExceptionUtil;
 import org.webcrawler.model.CrawlingSeed;
 import org.webcrawler.model.Page;
 import org.webcrawler.parser.util.ParserUtil;
@@ -61,10 +61,6 @@ public class AsyncWorkerStrategy implements WorkerStrategy {
 
         CrawlingSeed crawlingSeed;
 
-        Function<HttpRequest, HttpResponse<String>> sendRequest =
-                ExceptionUtils.rethrowFunction(request
-                        -> client.send(request, HttpResponse.BodyHandlers.ofString()));
-
         while (!crawlingSeeds.isEmpty()) {
             logger.log(Level.INFO, "queue: {0}", crawlingSeeds);
             crawlingSeed = crawlingSeeds.poll();
@@ -72,18 +68,17 @@ public class AsyncWorkerStrategy implements WorkerStrategy {
             final CrawlingSeed finalCrawlingSeed = crawlingSeed;
 
             buildRequest(crawlingSeed, Duration.ofMinutes(1))
-                    .thenApplyAsync(sendRequest)
+                    .thenApplyAsync(sendRequest(client))
                     .thenApplyAsync(response -> {
                         String responseBody = response != null ? response.body() : "";
                         List<String> linksFromPage = ParserUtil.findSeedsFromBody(responseBody);
                         pageDetails.put(finalCrawlingSeed, new Page(linksFromPage, responseBody));
                         return linksFromPage;
                     })
-                    .thenApplyAsync(links -> {
+                    .thenAcceptAsync(links -> {
                         if (depth > finalCrawlingSeed.getDepth()) {
                             addNewSeedsForCrawling(finalCrawlingSeed.getDepth() + LEVEL_DEEPER, links);
                         }
-                        return 0;
                     })
                     .join();
         }
@@ -119,6 +114,16 @@ public class AsyncWorkerStrategy implements WorkerStrategy {
                 .uri(URI.create(crawlingSeed.getSeed()))
                 .timeout(duration)
                 .build());
+    }
+
+    /**
+     * Method sends request to the specified constructed request
+     * @param client - specified http client
+     * @return received response
+     */
+    public Function<HttpRequest, HttpResponse<String>> sendRequest(HttpClient client) {
+        return ExceptionUtil.rethrowFunction(request
+                        -> client.send(request, HttpResponse.BodyHandlers.ofString()));
     }
 
 }
