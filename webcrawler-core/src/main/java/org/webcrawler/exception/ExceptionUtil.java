@@ -2,7 +2,7 @@ package org.webcrawler.exception;
 
 import java.util.function.Function;
 
-public class ExceptionUtils {
+public class ExceptionUtil {
 
     public static <T, R> Function<T, R> rethrowFunction(FunctionWithExceptions<T, R> function) {
         return t -> {
