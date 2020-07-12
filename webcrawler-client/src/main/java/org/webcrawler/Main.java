@@ -5,15 +5,13 @@ import org.webcrawler.crawler.WebCrawler;
 import org.webcrawler.crawler.search.CrawlSearcher;
 import org.webcrawler.crawler.search.SortDirection;
 import org.webcrawler.crawler.search.TermHintsSearcher;
-import org.webcrawler.export.CSVExporter;
-import org.webcrawler.export.Exporter;
-import org.webcrawler.worker.ConcurrentWorkerStrategy;
+import org.webcrawler.model.statistic.Statistic;
+import org.webcrawler.worker.AsyncWorkerStrategy;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,17 +36,20 @@ public class Main {
                 }
                 termStartCounter++; // params[termCounter] should be end bracket -et (end term)
 
-                Crawler crawler = new WebCrawler(new ConcurrentWorkerStrategy());
+                Crawler crawler = new WebCrawler(new AsyncWorkerStrategy());
                 CrawlSearcher crawlSearcher = new TermHintsSearcher(terms);
-                CrawlSearcher foundStatistics = crawler.crawl(rootSeed, depth, crawlSearcher);
-                boolean isExportToCSV = Optional.of(params.get(termStartCounter).equals("-csv")).orElse(false);
-                if (isExportToCSV) {
-                    Exporter exporter = new CSVExporter();
-                    exporter.exportAllInOne(foundStatistics.limit(0));
-                    exporter.exportSeparately(foundStatistics
-                            .sort(SortDirection.DESC)
-                            .limit(10), 10);
-                }
+                List<Statistic> foundStatistics = crawler.crawl(rootSeed, depth, crawlSearcher)
+                        .sort(SortDirection.DESC)
+                        .limit(0);
+                foundStatistics.forEach(System.out::println);
+//                boolean isExportToCSV = Optional.of(params.get(termStartCounter).equals("-csv")).orElse(false);
+//                if (isExportToCSV) {
+//                    Exporter exporter = new CSVExporter();
+//                    exporter.exportAllInOne(foundStatistics.limit(0));
+//                    exporter.exportSeparately(foundStatistics
+//                            .sort(SortDirection.DESC)
+//                            .limit(10), 10);
+//                }
             } else {
                 throw new UnsupportedOperationException();
             }
