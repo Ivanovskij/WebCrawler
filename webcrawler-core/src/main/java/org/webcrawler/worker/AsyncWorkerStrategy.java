@@ -68,8 +68,8 @@ public class AsyncWorkerStrategy implements WorkerStrategy {
             final CrawlingSeed finalCrawlingSeed = crawlingSeed;
 
             buildRequest(crawlingSeed, Duration.ofMinutes(1))
-                    .thenApplyAsync(sendRequest(client))
-                    .thenApplyAsync(response -> {
+                    .thenApply(sendRequest(client))
+                    .thenApply(response -> {
                         String responseBody = response != null ? response.body() : "";
                         List<String> linksFromPage = ParserUtil.findSeedsFromBody(responseBody);
                         pageDetails.put(finalCrawlingSeed, new Page(linksFromPage, responseBody));
@@ -79,6 +79,10 @@ public class AsyncWorkerStrategy implements WorkerStrategy {
                         if (depth > finalCrawlingSeed.getDepth()) {
                             addNewSeedsForCrawling(finalCrawlingSeed.getDepth() + LEVEL_DEEPER, links);
                         }
+                    })
+                    .exceptionally(e -> {
+                        logger.warning(e.getMessage());
+                        return null;
                     })
                     .join();
         }
