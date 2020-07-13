@@ -10,6 +10,8 @@ Simple web crawler based on Java 11 open JDK.
 
 # Features/Supports
   - Deep search
+  - Max visited pages
+  - Sync/Async worker
   - Terms search sorting by total hints
   - Exports statistics to csv file or to separate csv files
 
@@ -22,6 +24,8 @@ Simple web crawler based on Java 11 open JDK.
 crawlsearcher.txt allows you to change:<br><br>
 `- root seed`<br>
 `- depth`<br>
+`- max visited pages`<br>
+`- sync/async worker strategy`<br>
 `- st or et params mean start terms & end terms, so these params run term searcher`<br>
 `- csv export statistic to csv files`<br>
 
