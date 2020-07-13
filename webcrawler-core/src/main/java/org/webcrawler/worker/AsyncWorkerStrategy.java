@@ -134,4 +134,8 @@ public class AsyncWorkerStrategy implements WorkerStrategy {
                         -> client.send(request, HttpResponse.BodyHandlers.ofString()));
     }
 
+    @Override
+    public String toString() {
+        return "AsyncWorkerStrategy";
+    }
 }

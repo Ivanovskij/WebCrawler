@@ -28,4 +28,9 @@ public class DefaultSearcher implements CrawlSearcher {
     public List<Statistic> limit(long limit) {
         return Collections.emptyList();
     }
+
+    @Override
+    public String toString() {
+        return "DefaultSearcher";
+    }
 }
