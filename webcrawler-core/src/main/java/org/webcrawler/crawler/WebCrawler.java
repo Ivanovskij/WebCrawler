@@ -48,8 +48,9 @@ public class WebCrawler implements Crawler {
      */
     @Override
     public CrawlSearcher crawl(String rootSeed, int depth, int maxVisitedPages, CrawlSearcher crawlSearcher) {
-        logger.log(Level.INFO, "Web crawler is ready and starts to work. Params: rootSeed={0}, depth={1}, maxVisitedPages={2}",
-                new Object[]{rootSeed, depth, maxVisitedPages});
+        logger.log(Level.INFO, "Web crawler is ready and starts to work. " +
+                        "Params: rootSeed={0}, depth={1}, maxVisitedPages={2}, worker={3}, crawlerSearcher={4}",
+                new Object[]{rootSeed, depth, maxVisitedPages, workerStrategy, crawlSearcher});
         Map<CrawlingSeed, Page> crawledDetails = workerStrategy.run(rootSeed, depth, maxVisitedPages, client);
         return crawlSearcher.search(crawledDetails);
     }
