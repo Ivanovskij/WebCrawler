@@ -146,4 +146,9 @@ public class TermHintsSearcher implements CrawlSearcher {
                 .filter(terms::contains)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String toString() {
+        return "TermHintsSearcher";
+    }
 }
