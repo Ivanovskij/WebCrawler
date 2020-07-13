@@ -130,4 +130,9 @@ public class SyncWorkerStrategy implements WorkerStrategy {
                                              HttpRequest request) throws IOException, InterruptedException {
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
+    @Override
+    public String toString() {
+        return "SyncWorkerStrategy";
+    }
 }
