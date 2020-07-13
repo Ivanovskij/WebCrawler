@@ -5,6 +5,8 @@ Simple web crawler based on Java 11 open JDK.
 
 # Features/Supports
   - Deep search
+  - Max visited pages
+  - Sync/Async worker
   - Terms search sorting by total hints
   - Exports statistics to csv file or to separate csv files
 
