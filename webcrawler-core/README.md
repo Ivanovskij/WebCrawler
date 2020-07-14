@@ -1,4 +1,5 @@
-![Java CI with Maven](https://github.com/Ivanovskij/WebCrawler/workflows/Java%20CI%20with%20Maven/badge.svg)
+[![Java CI with Maven](https://github.com/Ivanovskij/WebCrawler/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/Ivanovskij/WebCrawler/actions)
+[![Code Coverage](https://codecov.io/gh/Ivanovskij/WebCrawler/branch/master/graph/badge.svg)](https://codecov.io/gh/Ivanovskij/WebCrawler?branch=master)
 
 # Open source WebCrawler
 Simple web crawler based on Java 11 open JDK.
